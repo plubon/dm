@@ -38,11 +38,9 @@ def read_training_data_multi(path):
     X = []
     Y = []
     with open(path, 'r') as ds:
-        start_time = time.time()
         reader = csv.reader(ds, delimiter=',')
-        print("Csv reader took %s seconds" % (time.time() - start_time))
         for row in reader:
-            if row[41] in labels:
+            if row[41] in labels and row[2] != 'icmp':
                 process_row_training_multi(row)
                 X.append(row[:-1])
                 Y.append(row[-1])
@@ -52,11 +50,9 @@ def read_training_data_binary(path):
     X = []
     Y = []
     with open(path, 'r') as ds:
-        start_time = time.time()
         reader = csv.reader(ds, delimiter=',')
-        print("Csv reader took %s seconds" % (time.time() - start_time))
         for row in reader:
-            if row[41] in labels:
+            if row[41] in labels and row[2] != 'icmp':
                 process_row_training_binary(row)
                 X.append(row[:-1])
                 Y.append(row[-1])
@@ -68,8 +64,9 @@ def read_input_data(path):
     with open(path, 'r') as ds:
         reader = csv.reader(ds, delimiter=',')
         for row in reader:
-            process_row(row)
-            X.append(row)
+            if row[2] != 'icmp':
+                process_row(row)
+                X.append(row)
     return X
 
 
