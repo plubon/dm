@@ -21,8 +21,9 @@ def main():
             tree = DecisionTree()
             tree.load(argv[3])
             results = tree.validate(training_data[0], training_data[1])
-            with open(argv[4], 'wb') as outfile:
-                outfile.write("\n".join(results))
+            with open(argv[4], 'w') as outfile:
+                for item in results:
+                    outfile.write("%s\n" % item)
         elif(argv[1] == '-c'):
             if '-b' in argv:
                 training_data =  DataReader.read_training_data_binary(argv[2])
@@ -31,8 +32,9 @@ def main():
             tree = DecisionTree()
             tree.load(argv[3])
             results = tree.classify(input_data)
-            with open(argv[4], 'wb') as outfile:
-                outfile.write("\n".join(results))
+            with open(argv[4], 'w') as outfile:
+                for item in results:
+                    outfile.write("%s\n" % item)
     else:
         print("Incorrect parameters provided")
 
